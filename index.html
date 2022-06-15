@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+
+<body>
+
+    <main>
+
+
+        <section class="todolist">
+
+            <div class="title">
+                <img src="img/laptop.svg" alt="">
+                <h1>to-do list</h1>
+            </div>
+            <div class="description">
+                <p>~ you are what you do not what you say ~</p>
+            </div>
+
+            <div class="inputCls">
+                <button onclick="_submit()"><span>submit</span></button>
+                <input type="text" required id="input">
+                <button onclick="_change()" class="btn"><span>change</span></button>
+
+            </div>
+
+            <ul class="list" id="ImportantNumbers">
+                <li>
+
+                    <strong>HomeWork</strong>
+                    <div class="icons">
+
+                        <span onclick="_check(this)"><i class="fa fa-check"></i></span>
+                        <span onclick="_delete(this)"><i class="fa fa-trash"></i></span>
+                        <span onclick="_edit(this)"><i class="fa fa-edit"></i></span>
+                        <span onclick="move_toTop(this)"><i class="fa fa-map-pin"></i></span>
+
+                    </div>
+
+
+                </li>
+            </ul>
+        </section>
+
+    </main>
+
+
+    <script>
+        let mesal;
+
+        function _submit() {
+
+            let temp = document.getElementById('input').value;
+            if (temp.length > 2) {
+                x = document.createElement('li')
+                x.innerHTML = '<strong>' + temp + '</strong> <div class="icons"><span onclick="_check(this)"><i class="fa fa-check"></i></span><span onclick="_delete(this)"><i class="fa fa-trash"></i></span><span onclick="_edit(this)"><i class="fa fa-edit"></i></span><span onclick="move_toTop(this)"><i class="fa fa-map-pin"></i></span></div>';
+                document.getElementsByClassName('list')[0].appendChild(x);
+                document.getElementById('input').value = null;
+                document.getElementById('input').focus();
+            } else {
+                alert('Please Restry')
+            }
+
+        }
+
+        function _delete(m) {
+
+            m.parentElement.parentElement.remove();
+
+        }
+
+        function _edit(x) {
+            mesal = x;
+            let y = x.parentElement.previousElementSibling.innerHTML;
+            document.getElementById('input').value = y
+            document.getElementById('input').focus();
+
+        }
+
+        function _change() {
+            mesal.parentElement.previousElementSibling.innerHTML = document.getElementById('input').value
+            document.getElementById('input').value = null
+        }
+
+
+
+        function _check(p) {
+
+
+            let x = p.parentElement.previousElementSibling;
+            let replc = document.createElement('del');
+            replc.innerHTML = x.innerHTML;
+            x.replaceWith(replc);
+            alert("Done :))");
+            replc.style.color = 'green';
+
+
+        }
+
+
+
+        function move_toTop(w) {
+
+            let x = w.parentElement.parentElement;
+            x.classList.toggle('bg-color');
+            let mylist = document.getElementById('ImportantNumbers');
+            alert('Pinned to top !!')
+            mylist.insertBefore(x, mylist.childNodes[0]);
+
+
+        }
+    </script>
+</body>
+
+</html>
